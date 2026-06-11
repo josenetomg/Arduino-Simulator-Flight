@@ -21,10 +21,10 @@ Um experimento de interação humano-computador usando **ESP32**, **MPU6050** e 
 
 ### 📦 Lista de Peças
 
- **1x ESP32** (Qualquer modelo com USB-Serial integrado).
- **1x Sensor MPU6050** (Acelerômetro).
- **4x Jumpers** (Fêmea-Fêmea).
- **1x Cabo USB** de boa qualidade.
+ - **1x ESP32** (Qualquer modelo com USB-Serial integrado).
+ - **1x Sensor MPU6050** (Acelerômetro).
+ - **4x Jumpers** (Fêmea-Fêmea).
+ - **1x Cabo USB** de boa qualidade.
    
 ---
 Este projeto é uma base excelente para um portfólio, pois te ajuda a demonstrar conhecimento em hardware, protocolos de comunicação serial e desenvolvimento web moderno.
