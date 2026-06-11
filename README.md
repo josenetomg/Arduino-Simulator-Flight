@@ -1,7 +1,9 @@
 # Arduino-Simulator-Flight
 # Um ESP32 Web Flight Simulator ✈️
 
-Um experimento de interação humano-computador usando **ESP32**, **MPU6050** e **Web Serial API**. O projeto permite controlar um objeto na tela do navegador através da inclinação física do sensor.
+Um experimento de interação humano-computador usando **ESP32**, **MPU6050** e **Web Serial API**. 
+
+O projeto permite controlar um objeto na tela do navegador através da inclinação física do sensor.
 
 ## 🛠️ Tecnologias
 - **Hardware:** ESP32, Sensor MPU6050.
