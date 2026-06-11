@@ -19,15 +19,14 @@ Um experimento de interação humano-computador usando **ESP32**, **MPU6050** e 
 - O navegador deve suportar a **Web Serial API** (Verifique em `caniuse.com/serial`).
 - O ESP32 deve estar conectado via cabo USB de dados.
 
-```
-
----
-
 ### 📦 Lista de Peças
 
 1. **1x ESP32** (Qualquer modelo com USB-Serial integrado).
 2. **1x Sensor MPU6050** (Acelerômetro).
 3. **4x Jumpers** (Fêmea-Fêmea).
 4. **1x Cabo USB** de boa qualidade.
-
+   
+---
 Este projeto é uma base excelente para um portfólio, pois te ajuda a demonstrar conhecimento em hardware, protocolos de comunicação serial e desenvolvimento web moderno.
+
+
