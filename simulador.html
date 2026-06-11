@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ESP32 Air Sim</title>
+    <style>
+        body { margin: 0; overflow: hidden; background: #87CEEB; font-family: sans-serif; }
+        #airplane { 
+            width: 100px; height: 50px; background: #333; 
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 10px; transition: transform 0.1s linear;
+        }
+        #ui { position: fixed; top: 20px; left: 20px; z-index: 10; }
+        button { padding: 10px 20px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <div id="ui">
+        <button id="connect">Conectar ESP32</button>
+        <p>Incline o sensor para pilotar!</p>
+    </div>
+    
+    <div id="airplane"></div>
+
+    <script>
+        const plane = document.getElementById('airplane');
+        const connectBtn = document.getElementById('connect');
+        
+        let posX = window.innerWidth / 2;
+        let posY = window.innerHeight / 2;
+
+        connectBtn.addEventListener('click', async () => {
+            try {
+                // Solicita acesso à porta Serial
+                const port = await navigator.serial.requestPort();
+                await port.open({ baudRate: 115200 });
+
+                const decoder = new TextDecoderStream();
+                const inputDone = port.readable.pipeTo(decoder.writable);
+                const reader = decoder.readable.getReader();
+
+                connectBtn.innerText = "Conectado!";
+                
+                let buffer = "";
+
+                while (true) {
+                    const { value, done } = await reader.read();
+                    if (done) break;
+                    
+                    buffer += value;
+                    let lines = buffer.split("\n");
+                    buffer = lines.pop(); // Mantém o que não está completo no buffer
+
+                    for (let line of lines) {
+                        try {
+                            const data = JSON.parse(line);
+                            updatePlane(data.x, data.y);
+                        } catch (e) {}
+                    }
+                }
+            } catch (error) {
+                console.error("Erro na conexão:", error);
+            }
+        });
+
+        function updatePlane(accX, accY) {
+            // Ajusta a posição baseado na aceleração
+            // accX controla lateral, accY controla subida/descida
+            posX -= accX * 5;
+            posY += accY * 5;
+
+            // Limites da tela
+            posX = Math.max(0, Math.min(window.innerWidth, posX));
+            posY = Math.max(0, Math.min(window.innerHeight, posY));
+
+            // Aplica ao elemento HTML
+            plane.style.left = posX + 'px';
+            plane.style.top = posY + 'px';
+            
+            // Efeito de inclinação visual
+            const tilt = accX * 5;
+            plane.style.transform = `translate(-50%, -50%) rotate(${tilt}deg)`;
+        }
+    </script>
+</body>
+</html>
